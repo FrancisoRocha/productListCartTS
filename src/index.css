@@ -1,0 +1,177 @@
+:root{
+
+    /* ===== COLORS ===== */
+    --red:    hsl(14, 86%, 42%);
+    --green:  hsl(159, 69%, 38%);
+    --rose-50:  hsl(20, 50%, 98%);
+    --rose-100: hsl(13, 31%, 94%);
+    --rose-300: hsl(14, 25%, 72%);
+    --rose-400: hsl(7, 20%, 60%);
+    --rose-500: hsl(12, 20%, 44%);
+    --rose-900: hsl(14, 65%, 9%);
+
+    /* ===== FONTS ===== */
+        --font-bold: 'RedHat-Bold', sans-serif;
+        --font-regular: 'RedHat-Regular', sans-serif;
+        --font-semi: 'RedHat-Semi', sans-serif;
+
+    /* ===== TEXTS ===== */
+    --text-present-1{
+        font-family: var(--font-bold);
+        font-size: 4rem;
+        line-height: 12%;
+        letter-spacing: 0rem;
+    }
+
+    --text-present-2{
+        font-family: var(--font-bold);
+        font-size: 2.4rem;
+        line-height: 12.5%;
+        letter-spacing: 0rem;
+    }
+
+    --text-present-3{
+        font-family: var(--font-semi);
+        font-size: 1.6rem;
+        line-height: 15%;
+        letter-spacing: 0rem;
+    }
+
+    --text-present-3{
+        font-family: var(--font-regular);
+        font-size: 1.4rem;
+        line-height: 15%;
+        letter-spacing: 0rem;
+    }
+
+    --text-present-3{
+        font-family: var(--font-semi);
+        font-size: 1.4rem;
+        line-height: 15%;
+        letter-spacing: 0rem;
+    }
+
+    /* ===== SPACING ===== */
+    --spacing-1: 0.4rem;
+    --spacing-2: 0.8rem;
+    --spacing-3: 1.2rem;
+    --spacing-4: 1.6rem;
+    --spacing-5: 2.4rem;
+    --spacing-6: 3.2rem;
+    --spacing-7: 4rem;
+    --spacing-8: 8.8rem;
+
+}
+
+/* ===== FONTS ===== */
+
+@font-face {
+	font-family: 'RedHat-Bold';
+	src: url('/public/fonts/static/RedHatText-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'RedHat-Regular';
+	src: url('/public/fonts/static/RedHatText-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'RedHat-Semi';
+	src: url('/public/fonts/static/RedHatText-SemiBold.ttf') format('truetype');
+}
+
+/* ===== CSS RESET ===== */
+/* ===== RESET CSS MODERNO ===== */
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+    min-height: 100dvh;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== ELEMENTOS MULTIMEDIA ===== */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* ===== FORMULARIOS ===== */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ===== TIPOGRAFÍA ===== */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+/* ===== LISTAS ===== */
+ul,
+ol {
+    list-style: none;
+}
+
+/* ===== ENLACES ===== */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ===== TABLAS ===== */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ===== STACKING CONTEXT ===== */
+#root {
+    isolation: isolate;
+}
