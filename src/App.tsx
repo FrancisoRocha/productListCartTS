@@ -3,7 +3,7 @@ function App() {
 
   return (
     <>
-        <h1>Hola Mundo!, mi primer componente</h1>
+        <h1 className="title">Desserts</h1>
     </>
   )
 }
