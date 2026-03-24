@@ -1,9 +1,21 @@
+import { Header } from "./components/Header"
+import data from './data/data.json'
+import type { Product } from "./types"
 
 function App() {
 
+    const products : Product[] = data;
+    console.log(products)
+
   return (
     <>
-        <h1 className="title">Desserts</h1>
+        <main className="container">
+            <header className="container__header">
+                <Header/>
+            </header>
+            <ul className="product__container">
+            </ul>
+        </main>
     </>
   )
 }

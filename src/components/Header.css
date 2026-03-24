@@ -1,0 +1,8 @@
+
+.title{
+    font-family: var(--text-preset-1-family);
+    font-size: var(--text-preset-1-size);
+    line-height: var(--text-preset-1-line-height);
+    letter-spacing: var(--text-preset-1-letter-spacing);
+    color: var(--rose-900);
+}
