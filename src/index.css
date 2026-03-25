@@ -1,6 +1,7 @@
 :root{
 
     /* ===== COLORS ===== */
+    --white:   hsl(0, 0%, 100%);
     --red:    hsl(14, 86%, 42%);
     --green:  hsl(159, 69%, 38%);
     --rose-50:  hsl(20, 50%, 98%);
@@ -11,9 +12,9 @@
     --rose-900: hsl(14, 65%, 9%);
 
     /* ===== FONTS ===== */
-        --font-bold: 'RedHat-Bold', sans-serif;
-        --font-regular: 'RedHat-Regular', sans-serif;
-        --font-semi: 'RedHat-Semi', sans-serif;
+    --font-bold: 'RedHat-Bold', sans-serif;
+    --font-regular: 'RedHat-Regular', sans-serif;
+    --font-semi: 'RedHat-Semi', sans-serif;
 
     /* ===== TEXTS ===== */
     --text-preset-1-family: var(--font-bold);
@@ -178,4 +179,10 @@ table {
 /* ===== STACKING CONTEXT ===== */
 #root {
     isolation: isolate;
+}
+
+.container{
+    display: flex;
+    gap: 3.2rem;
+    flex-direction: column;
 }
