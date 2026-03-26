@@ -23,5 +23,5 @@ export function ProductGrid({ products, items, onAddToCart, onIncrementQuantity,
                 />
             ))}
       </ul>
-        )
+    )
 }

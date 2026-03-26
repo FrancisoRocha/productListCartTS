@@ -11,13 +11,7 @@ type ProductCardProps = {
     onDecrement: (productId: Product["id"]) => void;
 };
 
-export function ProductCard({
-    product,
-    quantity,
-    onAddToCart,
-    onIncrement,
-    onDecrement,
-}: ProductCardProps) {
+export function ProductCard({ product, quantity, onAddToCart, onIncrement, onDecrement,}: ProductCardProps) {
     return (
         <li className="product__item">
             <div className="item__img">
@@ -36,7 +30,7 @@ export function ProductCard({
                     />
                     <img
                         src={product.image.mobile}
-                        className="img__product"
+                        className={`img__product${quantity > 0 ? " is-selected" : ""}`}
                         alt={product.name}
                     />
                 </picture>
