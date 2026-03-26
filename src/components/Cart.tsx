@@ -18,7 +18,7 @@ export function Cart({ items, cartTotal, onConfirmOrder, onRemoveFromCart }: Car
                 </div>
                 { items.length === 0 ? (
                     <div className="placeholder">
-                        <img src="/images/illustration-empty-cart.svg" alt="empty placeholder" />
+                        <img src="./images/illustration-empty-cart.svg" alt="empty placeholder" />
                         <p className="text__placeholder">Your added items will appear here</p>
                     </div>
                 ) : (
@@ -37,7 +37,7 @@ export function Cart({ items, cartTotal, onConfirmOrder, onRemoveFromCart }: Car
                                         aria-label="Remove product"
                                         onClick={() => onRemoveFromCart(item.product.id)}
                                     >
-                                        <img src="/images/icon-remove-item.svg" alt="" />
+                                        <img src="./images/icon-remove-item.svg" alt="" />
                                     </button>
                                 </li>
                             ))}
@@ -47,7 +47,7 @@ export function Cart({ items, cartTotal, onConfirmOrder, onRemoveFromCart }: Car
                             <p className="total">${ cartTotal.toFixed(2) }</p>
                         </div>
                         <div className="carbon__info">
-                            <img src="/images/icon-carbon-neutral.svg" alt="icon carbon neutral" />
+                            <img src="./images/icon-carbon-neutral.svg" alt="icon carbon neutral" />
                             <p className="carbon__text">This is a <b className="info">carbon-neutral</b> delivery</p>
                         </div>
                         <button
