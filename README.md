@@ -1,126 +1,128 @@
-# Frontend Mentor - Product list with cart solution
+# Frontend Mentor — Product List with Cart
 
-This is a solution to the [Product list with cart challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/product-list-with-cart-5MmqLVAp_d). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+Solución al [challenge Product list with cart](https://www.frontendmentor.io/challenges/product-list-with-cart-5MmqLVAp_d) de Frontend Mentor, construida con React + TypeScript como proyecto de aprendizaje real.
 
-## Table of contents
+## Tabla de contenidos
 
 - [Overview](#overview)
-  - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
-  - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-  - [AI Collaboration](#ai-collaboration)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+- [Stack y decisiones técnicas](#stack-y-decisiones-técnicas)
+- [Arquitectura](#arquitectura)
+- [Lo que aprendí](#lo-que-aprendí)
+- [Próximos pasos](#próximos-pasos)
+- [Colaboración con IA](#colaboración-con-ia)
+- [Autor](#autor)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
+---
 
 ## Overview
 
-### The challenge
+### El reto
 
-Users should be able to:
+Los usuarios pueden:
 
-- Add items to the cart and remove them
-- Increase/decrease the number of items in the cart
-- See an order confirmation modal when they click "Confirm Order"
-- Reset their selections when they click "Start New Order"
-- View the optimal layout for the interface depending on their device's screen size
-- See hover and focus states for all interactive elements on the page
+- Agregar productos al carrito y eliminarlos
+- Aumentar / disminuir la cantidad de cada producto
+- Ver el total de la orden en tiempo real
+- Confirmar la orden desde un modal
+- Resetear el carrito con "Start New Order"
+- Ver el layout óptimo según el dispositivo (mobile / tablet / desktop)
+- Ver estados hover y focus en todos los elementos interactivos
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+> 🚧 En progreso — se agrega al completar los estilos
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Repo: [github.com/FrancisoRocha/productListCartTS](https://github.com/FrancisoRocha/productListCartTS)
+- Live: _próximamente_
 
-## My process
+---
 
-### Built with
+## Stack y decisiones técnicas
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+- **React 18** + **TypeScript** — componentes, props, eventos
+- **Vite** — bundler y dev server
+- **CSS por componente** — cada componente tiene su propio `.css`, `index.css` solo tiene reset y variables globales
+- **Custom hook `useCart`** — toda la lógica del carrito encapsulada y separada de la UI
+- **Estado derivado** — `cartTotal` se calcula con `.reduce()` desde `items[]`, sin `useState`
+- **Lifting state up** — `isModalOpen` vive en `App` por ser el ancestro común de `Cart` y `Modal`
+- **Sin librerías de estado externas** — solo `useState` y props, intencional para aprender los fundamentos
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+---
 
-### What I learned
+## Arquitectura
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-To see how you can add code snippets, see below:
-
-```html
-<h1>Some HTML code I'm proud of</h1>
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
+App  ← useCart(), isModalOpen, handlers
+├── Header
+├── ProductGrid  ← products[], items[], handlers
+│   └── ProductCard (× n)  ← product, quantity, onAddToCart, onIncrement, onDecrement
+├── Cart  ← items[], cartTotal, onConfirmOrder, onRemoveFromCart
+└── Modal  ← isOpen, items[], cartTotal, onStartNewOrder
+```
+
+**Flujo de datos:**
+```
+data.json → App → ProductGrid → ProductCard
+useCart   → App → Cart
+                → Modal
+```
+
+---
+
+## Lo que aprendí
+
+### Estado de UI vs Estado de dominio
+No todo el estado pertenece al mismo lugar. `items[]` es estado de dominio (vive en `useCart`). `isModalOpen` es estado de UI (vive en el componente que lo controla). Mezclarlos viola la separación de responsabilidades.
+
+### Lifting state up
+El `useState` vive en el componente que necesita *controlarlo*, no en el que lo muestra. Si el estado viviera dentro del `Modal`, `Cart` no podría abrirlo.
+
+### Shallow copy bug
+`[...items]` copia el array pero los objetos internos siguen siendo referencias. Mutar `items[index].quantity += 1` muta el estado original. La solución es `.map()` para crear nuevos objetos:
+```ts
+items.map(item =>
+  item.product.id === id
+    ? { ...item, quantity: item.quantity + 1 }
+    : item
+)
+```
+
+### Composición sobre mezcla en TypeScript
+```ts
+// ❌ mezcla campos — duplica datos
+interface CartItem { id: string; name: string; quantity: number }
+
+// ✅ composición — Product es un campo
+interface CartItem {
+  product: Product
+  quantity: number
 }
 ```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
-```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+---
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+## Próximos pasos
 
-### Continued development
+- [ ] Sprint 2 — Estilos completos y responsive design
+- [ ] Sprint 3 — Accesibilidad (keyboard nav, aria labels, focus states)
+- [ ] Sprint 4 — Persistencia con localStorage
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+---
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+## Colaboración con IA
 
-### Useful resources
+Este proyecto se desarrolló con **Claude (Anthropic)** como mentor técnico, simulando un entorno real de trabajo:
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+- **Metodología:** Sprint planning, tickets en Linear, code reviews por cada componente
+- **Rol de la IA:** Guía y revisión — no generó código directamente, sino que hizo preguntas para que yo pensara la solución
+- **Herramientas integradas:** Linear (tickets), Notion (decisiones técnicas), GitHub (PRs y ramas)
+- **Lo que aprendí del proceso:** Trabajar con un flujo profesional desde el inicio (branches, PRs, commits convencionales) hace la diferencia en cómo entiendes el código que escribes
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+---
 
-### AI Collaboration
+## Autor
 
-Describe how you used AI tools (if any) during this project. This helps demonstrate your ability to work effectively with AI assistants.
-
-- What tools did you use (e.g., ChatGPT, Claude, GitHub Copilot)?
-- How did you use them (e.g., debugging, generating boilerplate, brainstorming solutions)?
-- What worked well? What didn't?
-
-**Note: Delete this note and the content above if you didn't use AI, or replace with your own experience.**
-
-## Author
-
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- GitHub — [@FrancisoRocha](https://github.com/FrancisoRocha)
+- Frontend Mentor — [@FrancisoRocha](https://www.frontendmentor.io/profile/FrancisoRocha)
