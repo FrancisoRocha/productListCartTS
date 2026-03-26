@@ -1,6 +1,7 @@
 :root{
 
     /* ===== COLORS ===== */
+    --white:   hsl(0, 0%, 100%);
     --red:    hsl(14, 86%, 42%);
     --green:  hsl(159, 69%, 38%);
     --rose-50:  hsl(20, 50%, 98%);
@@ -10,46 +11,39 @@
     --rose-500: hsl(12, 20%, 44%);
     --rose-900: hsl(14, 65%, 9%);
 
+    /* MODAL */
+    --hover-dark: rgba(0, 0, 0, 0.5);
+
     /* ===== FONTS ===== */
-        --font-bold: 'RedHat-Bold', sans-serif;
-        --font-regular: 'RedHat-Regular', sans-serif;
-        --font-semi: 'RedHat-Semi', sans-serif;
+    --font-bold: 'RedHat-Bold', sans-serif;
+    --font-regular: 'RedHat-Regular', sans-serif;
+    --font-semi: 'RedHat-Semi', sans-serif;
 
     /* ===== TEXTS ===== */
-    --text-present-1{
-        font-family: var(--font-bold);
-        font-size: 4rem;
-        line-height: 12%;
-        letter-spacing: 0rem;
-    }
+    --text-preset-1-family: var(--font-bold);
+    --text-preset-1-size: 4rem;
+    --text-preset-1-line-height: 120%;
+    --text-preset-1-letter-spacing: 0rem;
 
-    --text-present-2{
-        font-family: var(--font-bold);
-        font-size: 2.4rem;
-        line-height: 12.5%;
-        letter-spacing: 0rem;
-    }
+    --text-preset-2-family: var(--font-bold);
+    --text-preset-2-size: 2.4rem;
+    --text-preset-2-line-height: 125%;
+    --text-preset-2-letter-spacing: 0rem;
 
-    --text-present-3{
-        font-family: var(--font-semi);
-        font-size: 1.6rem;
-        line-height: 15%;
-        letter-spacing: 0rem;
-    }
+    --text-preset-3-family: var(--font-semi);
+    --text-preset-3-size: 1.6rem;
+    --text-preset-3-line-height: 150%;
+    --text-preset-3-letter-spacing: 0rem;
 
-    --text-present-3{
-        font-family: var(--font-regular);
-        font-size: 1.4rem;
-        line-height: 15%;
-        letter-spacing: 0rem;
-    }
+    --text-preset-4-family: var(--font-regular);
+    --text-preset-4-size: 1.4rem;
+    --text-preset-4-line-height: 150%;
+    --text-preset-4-letter-spacing: 0rem;
 
-    --text-present-3{
-        font-family: var(--font-semi);
-        font-size: 1.4rem;
-        line-height: 15%;
-        letter-spacing: 0rem;
-    }
+    --text-preset-5-family: var(--font-semi);
+    --text-preset-5-size: 1.4rem;
+    --text-preset-5-line-height: 150%;
+    --text-preset-5-letter-spacing: 0rem;
 
     /* ===== SPACING ===== */
     --spacing-1: 0.4rem;
@@ -103,7 +97,20 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--rose-50);
+    padding: 2.4rem;
 }
+
+/*@media(min-width: 768px){
+    body{
+        padding: 4rem;
+    }
+}
+
+@media(min-width: 1440px){
+    body{
+        padding: 8.8rem 4rem;
+    }
+}*/
 
 /* ===== ELEMENTOS MULTIMEDIA ===== */
 img,
@@ -175,4 +182,48 @@ table {
 /* ===== STACKING CONTEXT ===== */
 #root {
     isolation: isolate;
+}
+
+.container{
+    display: flex;
+    gap: 3.2rem;
+    flex-direction: column;
+}
+
+@media(min-width: 768px){
+    .container{
+        padding: 4rem;
+    }
+    .product__container{
+        display: grid;
+        gap: 3.2rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/*-----DESKTOP----*/
+@media(min-width: 1440px){
+    .container{
+        padding: 8.8rem 4rem;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "title cart"
+            "products cart";
+        gap: 3.2rem;
+    }
+    .container__title{
+        grid-area: title;
+    }
+    .product__container{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-area: products;
+    }
+    /** CART - alineado con el título **/
+    .container__cart{
+        grid-area: cart;
+        align-self: self-start;
+    }
 }
