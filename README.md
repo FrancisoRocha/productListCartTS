@@ -29,8 +29,8 @@ Los usuarios pueden:
 - Ver estados hover y focus en todos los elementos interactivos
 
 ### Screenshot
-
-> 🚧 En progreso — se agrega al completar los estilos
+![Vista principal](./preview.jpg)
+![Modal de confirmación](./modal.jpg)
 
 ### Links
 
@@ -88,6 +88,20 @@ items.map(item =>
     : item
 )
 ```
+### Persistencia con localStorage
+El carrito se sincroniza con `localStorage` en cada cambio usando un `useEffect` que observa `items[]`. Al montar la app, se recupera el estado previo con una función de inicialización lazy en `useState`:
+```ts
+const [items, setItems] = useState<CartItem[]>(() => {
+  const saved = localStorage.getItem('cart')
+  return saved ? JSON.parse(saved) : []
+})
+
+useEffect(() => {
+  localStorage.setItem('cart', JSON.stringify(items))
+}, [items])
+```
+Esto garantiza que el carrito sobreviva recargas sin necesidad de librerías externas.
+
 
 ### Composición sobre mezcla en TypeScript
 ```ts
@@ -105,9 +119,9 @@ interface CartItem {
 
 ## Próximos pasos
 
-- [ ] Sprint 2 — Estilos completos y responsive design
-- [ ] Sprint 3 — Accesibilidad (keyboard nav, aria labels, focus states)
-- [ ] Sprint 4 — Persistencia con localStorage
+- [x] Sprint 2 — Estilos completos y responsive design
+- [x] Sprint 3 — Accesibilidad (keyboard nav, aria labels, focus states)
+- [x] Sprint 4 — Persistencia con localStorage
 
 ---
 

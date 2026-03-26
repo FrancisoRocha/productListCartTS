@@ -1,9 +1,16 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import type { CartItem, Product } from "../types";
 
 export const useCart = () => {
 
-    const [items, setItems] = useState<CartItem[]>([]);
+    const [items, setItems] = useState<CartItem[]>(() => {
+        const saved = localStorage.getItem('cart')
+        return saved ? JSON.parse(saved) : []
+    });
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(items))
+    }, [items])
 
     function addToCart(productItems: Product) {
         const existingProduct = items.findIndex(item => item.product.id === productItems.id);
