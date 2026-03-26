@@ -62,10 +62,6 @@ export const useCart = () => {
 
     const cartTotal = items.reduce((total, item) => total + item.product.price * item.quantity, 0)
 
-    function confirmOrder() {
-        // Aquí se agregara la lógica para procesar el pedido -> Abrir el Modal
-    }
-
     function startNewOrder() {
         setItems([]);
     }
@@ -74,7 +70,6 @@ export const useCart = () => {
         items,
         addToCart,
         cartTotal,
-        confirmOrder,
         startNewOrder,
         incrementQuantity,
         decrementQuantity,
